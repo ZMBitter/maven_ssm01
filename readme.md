@@ -181,6 +181,7 @@ $("#emp_add_btn").click(function () {
 
 <h3>删除</h3>
 1. 单个删除:employee/{id} delete<br/>
+
 ```js
  $(document).on("click",".delete-btn",function () {
        //1.1 弹出是否确认删除的对话框。获取的是<tr><td></td></tr>中的文本值
