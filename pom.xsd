@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="project" type="ns:projectType" xmlns:ns="http://maven.apache.org/POM/4.0.0"/>
+  <xs:complexType name="propertiesType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="project.build.sourceEncoding"/>
+      <xs:element type="xs:string" name="maven.compiler.source"/>
+      <xs:element type="xs:string" name="maven.compiler.target"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencyType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="groupId">
+        <xs:annotation>
+          <xs:documentation>spring面向切面</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="xs:string" name="artifactId"/>
+      <xs:element type="xs:string" name="version"/>
+      <xs:element type="xs:string" name="scope" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependenciesType">
+    <xs:sequence>
+      <xs:element type="ns:dependencyType" name="dependency" maxOccurs="unbounded" minOccurs="0" xmlns:ns="http://maven.apache.org/POM/4.0.0">
+        <xs:annotation>
+          <xs:documentation><![CDATA[1.引入spring mvc、spring的依赖包spring mvcspring事务控制:jdbc2.mybatis的jar包mybatis核心包mybatis-spring整合包3.数据库驱动包与连接池数据库连接池c3p0druid4.测试包junit单元测试<scope>test</scope><scope>test</scope>5.其他的依赖包jstl <dependency>
+      &lt;!&ndash;servlet-api&ndash;&gt;
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+    </dependency>引入3.0版本的servlet-api返回json字符串的依赖mybatis逆向工程依赖包引入分页插件]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pluginType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="groupId" minOccurs="0"/>
+      <xs:element name="artifactId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="maven-clean-plugin"/>
+            <xs:enumeration value="maven-resources-plugin"/>
+            <xs:enumeration value="maven-compiler-plugin"/>
+            <xs:enumeration value="maven-surefire-plugin"/>
+            <xs:enumeration value="maven-war-plugin"/>
+            <xs:enumeration value="maven-install-plugin"/>
+            <xs:enumeration value="maven-deploy-plugin"/>
+            <xs:enumeration value="mybatis-generator-maven-plugin"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="version">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="3.1.0"/>
+            <xs:enumeration value="3.0.2"/>
+            <xs:enumeration value="3.8.0"/>
+            <xs:enumeration value="2.22.1"/>
+            <xs:enumeration value="3.2.2"/>
+            <xs:enumeration value="2.5.2"/>
+            <xs:enumeration value="2.8.2"/>
+            <xs:enumeration value="1.3.6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="ns:configurationType" name="configuration" minOccurs="0" xmlns:ns="http://maven.apache.org/POM/4.0.0">
+        <xs:annotation>
+          <xs:documentation>配置generatorConfig.xml的路径和名称</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="ns:executionsType" name="executions" minOccurs="0" xmlns:ns="http://maven.apache.org/POM/4.0.0">
+        <xs:annotation>
+          <xs:documentation>配置generator运行插件,使maven执行generator</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="configurationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="configurationFile"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="goalsType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="goal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="executionType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="id"/>
+      <xs:element type="ns:goalsType" name="goals" xmlns:ns="http://maven.apache.org/POM/4.0.0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="executionsType">
+    <xs:sequence>
+      <xs:element type="ns:executionType" name="execution" xmlns:ns="http://maven.apache.org/POM/4.0.0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pluginsType">
+    <xs:sequence>
+      <xs:element type="ns:pluginType" name="plugin" maxOccurs="unbounded" minOccurs="0" xmlns:ns="http://maven.apache.org/POM/4.0.0">
+        <xs:annotation>
+          <xs:documentation>see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging  mybatis-generator自动生成代码插件</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pluginManagementType">
+    <xs:sequence>
+      <xs:element type="ns:pluginsType" name="plugins" xmlns:ns="http://maven.apache.org/POM/4.0.0">
+        <xs:annotation>
+          <xs:documentation>lock down plugins versions to avoid using Maven defaults (may be moved to parent pom)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buildType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="finalName"/>
+      <xs:element type="ns:pluginManagementType" name="pluginManagement" xmlns:ns="http://maven.apache.org/POM/4.0.0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="projectType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="modelVersion"/>
+      <xs:element type="xs:string" name="groupId"/>
+      <xs:element type="xs:string" name="artifactId"/>
+      <xs:element type="xs:string" name="version"/>
+      <xs:element type="xs:string" name="packaging"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="url">
+        <xs:annotation>
+          <xs:documentation>FIXME change it to the project's website</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="ns:propertiesType" name="properties" xmlns:ns="http://maven.apache.org/POM/4.0.0"/>
+      <xs:element type="ns:dependenciesType" name="dependencies" xmlns:ns="http://maven.apache.org/POM/4.0.0">
+        <xs:annotation>
+          <xs:documentation>引入项目依赖的jar包</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="ns:buildType" name="build" xmlns:ns="http://maven.apache.org/POM/4.0.0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
