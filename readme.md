@@ -56,6 +56,7 @@ dom增删改改变页面。<br/>
 
 <h2>分页插件的使用</h2>
 在mybatis-config.xml文件中进行配置
+
 ```xml
   <!--在mybatis中注册分页插件-->
     <plugins>
@@ -66,6 +67,7 @@ dom增删改改变页面。<br/>
     </plugins>
 ```
 <b>注意</b>：plugins标签要放在typeAliases标签的后面
+
 ```java
 public class CRUDController {
     //……
@@ -97,6 +99,7 @@ public class CRUDController {
 所使用的技术：ajax，json
 
 将从数据库里面查询出来的员工信息填充到下拉列表中
+
 ```html
 $("#emp_add_btn").click(function () {
 
@@ -139,6 +142,7 @@ $("#emp_add_btn").click(function () {
 ```
 
 注意点：如何实现在提交了一条记录后，模态框消失，并且显示最后一页的信息。
+
 ```html
  //模态框消失
  $("#emp_add_model").modal("hide");
